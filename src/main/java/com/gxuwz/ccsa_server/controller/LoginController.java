@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api") // <--- 关键！这决定了所有接口都以 /api 开头
 public class LoginController {
 
     @Autowired
@@ -19,7 +19,7 @@ public class LoginController {
     @Autowired
     private UserMapper userMapper;
 
-    // 管理员登录
+    // 管理员登录 -> /api/admin/login
     @PostMapping("/admin/login")
     public Result<Admin> adminLogin(@RequestBody Admin admin) {
         QueryWrapper<Admin> queryWrapper = new QueryWrapper<>();
@@ -34,7 +34,7 @@ public class LoginController {
         }
     }
 
-    // 居民登录
+    // 居民登录 -> /api/user/login
     @PostMapping("/user/login")
     public Result<User> userLogin(@RequestBody User user) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -49,10 +49,9 @@ public class LoginController {
         }
     }
 
-    // 居民注册
+    // 居民注册 -> /api/user/register
     @PostMapping("/user/register")
     public Result<User> userRegister(@RequestBody User user) {
-        // 检查手机号是否重复
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("phone", user.getPhone());
         if (userMapper.selectCount(queryWrapper) > 0) {

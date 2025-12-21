@@ -1,10 +1,9 @@
 package com.gxuwz.ccsa_server.common;
-
 import lombok.Data;
 
 @Data
 public class Result<T> {
-    private int code; // 200成功，500失败
+    private int code;
     private String msg;
     private T data;
 

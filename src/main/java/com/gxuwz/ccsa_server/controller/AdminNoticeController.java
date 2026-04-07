@@ -4,6 +4,7 @@ import com.gxuwz.ccsa_server.common.Result;
 import com.gxuwz.ccsa_server.entity.AdminNotice;
 import com.gxuwz.ccsa_server.service.AdminNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class AdminNoticeController {
 
     @Autowired
     private AdminNoticeService noticeService;
-
+    private StringRedisTemplate stringRedisTemplate;
     // 管理员：保存/发布/更新通知
     @PostMapping("/save")
     public Result<String> saveNotice(@RequestBody AdminNotice notice) {
